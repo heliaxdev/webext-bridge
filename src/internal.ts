@@ -269,14 +269,21 @@ async function handleWindowOnMessage({ data, ports }: MessageEvent) {
     assertInternalMessage(payload)
     // a message event inside `content-script` means a script inside `window` dispatched it
     // so we're making sure that the origin is not tampered (i.e script is not masquerading it's true identity)
-    if (context === 'content-script') {
-      payload.origin = {
-        context: 'window',
-        tabId: null,
+    try {
+      if (context === 'content-script') {
+        payload.origin = {
+          context: 'window',
+          tabId: null,
+        }
       }
     }
-
-    routeMessage(payload)
+    catch (e) {
+      console.warn('There was an error ensuring that the origin was not tampered. This usually happens on Firefox:')
+      console.error(e)
+    }
+    finally {
+      routeMessage(payload)
+    }
   }
 }
 
