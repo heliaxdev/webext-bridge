@@ -2,8 +2,6 @@
 
 Messaging from websites to web extensions made super easy. Out of the box.
 
-[![](https://img.shields.io/npm/v/webext-bridge?color=2B90B6&label=)](https://www.npmjs.com/package/webext-bridge)
-
 > Forked from [webext-bridge](https://github.com/antfu/webext-bridge) by [antfu](https://github.com/antfu)
 
 ##### Changes in this Fork
