@@ -1,6 +1,6 @@
 {
-  "name": "webext-bridge",
-  "version": "5.0.1",
+  "name": "@heliaxdev/webext-bridge",
+  "version": "5.0.2",
   "description": "Messaging in Web Extensions made easy. Out of the box.",
   "keywords": [
     "chrome",
@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/webext-bridge.git"
+    "url": "git+https://github.com/heliaxdev/webext-bridge.git"
   },
   "author": "Neek Sandhu <neek.sandhu@outlook.com>",
   "main": "dist/index.js",
@@ -33,9 +33,9 @@
     "dist"
   ],
   "bugs": {
-    "url": "https://github.com/antfu/webext-bridge/issues"
+    "url": "https://github.com/heliaxdev/webext-bridge/issues"
   },
-  "homepage": "https://github.com/antfu/webext-bridge#readme",
+  "homepage": "https://github.com/heliaxdev/webext-bridge#readme",
   "dependencies": {
     "@types/webextension-polyfill": "^0.8.0",
     "nanoevents": "^6.0.0",
