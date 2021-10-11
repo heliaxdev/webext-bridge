@@ -3,7 +3,6 @@ lockfileVersion: 5.3
 specifiers:
   '@antfu/eslint-config': ^0.7.0
   '@types/node': ^16.7.1
-  '@types/webextension-polyfill': ^0.8.0
   '@typescript-eslint/eslint-plugin': ^4.29.3
   '@typescript-eslint/parser': ^4.29.3
   bumpp: ^6.0.6
@@ -14,14 +13,11 @@ specifiers:
   tsup: ^4.14.0
   type-fest: ^2.1.0
   typescript: ^4.3.5
-  webextension-polyfill: ^0.8.0
 
 dependencies:
-  '@types/webextension-polyfill': 0.8.0
   nanoevents: 6.0.0
   serialize-error: 8.1.0
   tiny-uid: 1.1.1
-  webextension-polyfill: 0.8.0
 
 devDependencies:
   '@antfu/eslint-config': 0.7.0_eslint@7.32.0+typescript@4.3.5
@@ -418,10 +414,6 @@ packages:
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
-
-  /@types/webextension-polyfill/0.8.0:
-    resolution: {integrity: sha512-usmQx2snpNkVl2VoOGZCdrPnfHL+CjuSFy84ZdTwQ2b2cvyygF/zGW5YI6Zywk+bfq9zmYpORO9lmdN7DknpRw==}
-    dev: false
 
   /@typescript-eslint/eslint-plugin/4.28.4_7541f6bc1d899a7e73db4ebff32a94db:
     resolution: {integrity: sha512-s1oY4RmYDlWMlcV0kKPBaADn46JirZzvvH7c2CtAqxCY96S538JRBAzt83RrfkDheV/+G/vWNK0zek+8TB3Gmw==}
@@ -2971,10 +2963,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /webextension-polyfill/0.8.0:
-    resolution: {integrity: sha512-a19+DzlT6Kp9/UI+mF9XQopeZ+n2ussjhxHJ4/pmIGge9ijCDz7Gn93mNnjpZAk95T4Tae8iHZ6sSf869txqiQ==}
-    dev: false
 
   /which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
