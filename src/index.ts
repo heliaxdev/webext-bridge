@@ -3,7 +3,6 @@ export * from './bridge'
 export * from './types'
 
 export {
-  allowWindowMessaging,
   setNamespace,
   getCurrentContext,
 } from './internal'

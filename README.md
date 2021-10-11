@@ -1,16 +1,15 @@
-# webext-bridge
+# webext-bridge-window
 
-Messaging in WebExtension made super easy. Out of the box.
+Messaging from websites to web extensions made super easy. Out of the box.
 
 [![](https://img.shields.io/npm/v/webext-bridge?color=2B90B6&label=)](https://www.npmjs.com/package/webext-bridge)
 
-> Forked from [crx-bridge](https://github.com/NeekSandhu/crx-bridge) by [NeekSandhu](https://github.com/NeekSandhu)
+> Forked from [webext-bridge](https://github.com/antfu/webext-bridge) by [antfu](https://github.com/antfu)
 
 ##### Changes in this Fork
 
-- build esm instead of cjs (for better bundler optimization)
-- use `nanoevents` instead of `events` (decoupled form node module)
-- [type safe protocols](#type-safe-protocols)
+- Removes webextension-side functionality
+- Makes it work on common webpages.
 
 ----
 
@@ -21,99 +20,41 @@ This much
 <a name="example"></a>
 
 ```javascript
-// Inside devtools script
-import { sendMessage } from 'webext-bridge'
-
-// ...
-
-button.addEventListener('click', async () => {
-  const res = await sendMessage('get-selection',  { ignoreCasing: true },  'content-script')  
-  console.log(res)   // > "The brown fox is alive and well"
-})
-```
-
-```javascript
 // Inside content script
-import { sendMessage, onMessage } from 'webext-bridge'  
+import { allowWindowMessaging } from 'webext-bridge'  
 
-onMessage('get-selection', async (message) => {
-  const { sender, data: { ignoreCasing } } = message  
-
-  console.log(sender.context, sender.tabId)   // > content-script  156
-
-  const { selection } = await sendMessage('get-preferences', { sync: false }, 'background')  
-  return calculateSelection(data.ignoreCasing, selection)  
-})  
+allowWindowMessaging('com.extension.example')  
 ```
 
 ```javascript
+// Inside webpage
+
+import { setNamespace, sendMessage } from '@heliaxdev/webext-bridge-window'  
+
+setNamespace('com.extension.example')  
+
+const res = await sendMessage('get-selection', { ignoreCasing: true }, 'background')
+
+console.log(res) // > "The brown fox is alive and well"
+```
+
+``` javascript
 // Inside background script
 import { onMessage } from 'webext-bridge'  
 
-onMessage('get-preferences', ({ data }) => {
-  const { sync } = data  
-
-  return loadUserPreferences(sync)  
-})  
+onMessage('get-selection', ({ data }) => {
+  return Promise.resolve('The brown fox is alive and well')
+}
 ```
 
-> Examples above require transpiration and/or bundling using `webpack`/`babel`/`rollup`
-
-`webext-bridge` handles everything for you as efficiently as possible. No more `chrome.runtime.sendMessage` or `chrome.runtime.onConnect` or `chrome.runtime.connect` ....
+`
 
 ## Setup
 
 ### Install
 
 ```bash
-$ npm i webext-bridge
-```
-
-#### Light it up
-
-Just `import { } from 'webext-bridge'` wherever you need it and use as shown in [example above](#example)
-
-> Even if your extension doesn't need a background page or wont be sending/receiving messages in background script.
-> <br> `webext-bridge` uses background/event context as staging area for messages, therefore it **must** loaded in background/event page for it to work.
-> <br> (Attempting to send message from any context will fail silently if `webext-bridge` isn't available in background page).
-> <br> See [troubleshooting section](#troubleshooting) for more.
-
-<a name="api"></a>
-
-## Type Safe Protocols
-
-As we are likely to use `sendMessage` and `onMessage` in different context, keep the type consistent could be hard and easy to make mistakes. `webext-bridge` provide a smarter way to make the type for protocols much easier.
-
-Create `shim.d.ts` file with the following content and make sure it's been included in `tsconfig.json`.
-
-```ts
-// shim.d.ts
-import { ProtocolWithReturn } from 'webext-bridge'
-
-declare module 'webext-bridge' {
-  export interface ProtocolMap {
-    foo: { title: string }
-    // to specify the return type of the message,
-    // use the `ProtocolWithReturn` type wrapper
-    bar: ProtocolWithReturn<CustomDataType, CustomReturnType>
-  }
-}
-```
-
-```ts
-import { onMessage } from 'webext-bridge'
-
-onMessage('foo', ({ data }) => {
-  // type of `data` will be `{ title: string }`
-  console.log(data.title)
-}
-```
-
-```ts
-import { sendMessage } from 'webext-bridge'
-
-const returnData = await sendMessage('bar', { /* ... */ })
-// type of `returnData` will be `CustomReturnType` as specified
+$ npm i @heliaxdev/webext-bridge-window
 ```
 
 ## API
